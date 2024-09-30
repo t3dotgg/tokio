@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: read  # for actions/labeler to determine modified files
       pull-requests: write  # for actions/labeler to add labels to PRs
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     if: github.repository_owner == 'tokio-rs'
     steps:
     - uses: actions/labeler@v3

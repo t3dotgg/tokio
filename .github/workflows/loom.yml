@@ -27,14 +27,14 @@ jobs:
     name: loom tokio::sync
     # base_ref is null when it's not a pull request
     if: github.repository_owner == 'tokio-rs' && (contains(github.event.pull_request.labels.*.name, 'R-loom-sync') || (github.base_ref == null))
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust ${{ env.rust_stable }}
         uses: dtolnay/rust-toolchain@master
         with:
             toolchain: ${{ env.rust_stable }}
-      - uses: Swatinem/rust-cache@v2
+      - uses: useblacksmith/rust-cache@v3
       - name: run tests
         run: cargo test --lib --release --features full -- --nocapture sync::tests
         working-directory: tokio
@@ -43,14 +43,14 @@ jobs:
     name: loom time driver
     # base_ref is null when it's not a pull request
     if: github.repository_owner == 'tokio-rs' && (contains(github.event.pull_request.labels.*.name, 'R-loom-time-driver') || (github.base_ref == null))
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust ${{ env.rust_stable }}
         uses: dtolnay/rust-toolchain@master
         with:
             toolchain: ${{ env.rust_stable }}
-      - uses: Swatinem/rust-cache@v2
+      - uses: useblacksmith/rust-cache@v3
       - name: run tests
         run: cargo test --lib --release --features full -- --nocapture runtime::time::tests
         working-directory: tokio
@@ -59,14 +59,14 @@ jobs:
     name: loom current-thread scheduler
     # base_ref is null when it's not a pull request
     if: github.repository_owner == 'tokio-rs' && (contains(github.event.pull_request.labels.*.name, 'R-loom-current-thread') || (github.base_ref == null))
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
       - name: Install Rust ${{ env.rust_stable }}
         uses: dtolnay/rust-toolchain@master
         with:
             toolchain: ${{ env.rust_stable }}
-      - uses: Swatinem/rust-cache@v2
+      - uses: useblacksmith/rust-cache@v3
       - name: run tests
         run: cargo test --lib --release --features full -- --nocapture loom_current_thread
         working-directory: tokio
@@ -75,7 +75,7 @@ jobs:
     name: loom multi-thread scheduler
     # base_ref is null when it's not a pull request
     if: github.repository_owner == 'tokio-rs' && (contains(github.event.pull_request.labels.*.name, 'R-loom-multi-thread') || (github.base_ref == null))
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     strategy:
       matrix:
         include:
@@ -89,7 +89,7 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
             toolchain: ${{ env.rust_stable }}
-      - uses: Swatinem/rust-cache@v2
+      - uses: useblacksmith/rust-cache@v3
       - name: loom ${{ matrix.scope }}
         run: cargo test --lib --release --features full -- $SCOPE
         working-directory: tokio
@@ -100,7 +100,7 @@ jobs:
     name: loom ALT multi-thread scheduler
     # base_ref is null when it's not a pull request
     if: github.repository_owner == 'tokio-rs' && (contains(github.event.pull_request.labels.*.name, 'R-loom-multi-thread-alt') || (github.base_ref == null))
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     strategy:
       matrix:
         include:
@@ -114,7 +114,7 @@ jobs:
         uses: dtolnay/rust-toolchain@master
         with:
             toolchain: ${{ env.rust_stable }}
-      - uses: Swatinem/rust-cache@v2
+      - uses: useblacksmith/rust-cache@v3
       - name: loom ${{ matrix.scope }}
         run: cargo test --lib --release --features full -- $SCOPE
         working-directory: tokio
